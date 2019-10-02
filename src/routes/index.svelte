@@ -1,13 +1,21 @@
-<style>
+<script context="module">
+  import { string } from 'utils/rand';
 
-</style>
+  export async function preload() {
+    return { rand: string() }
+  }
+</script>
 
-<svelte:head>
-  <title>Sapper project template</title>
-</svelte:head>
+<script>
+  import { stores } from '@sapper/app';
+  import { getContext } from 'svelte';
 
-<p>
-  <strong>
-    Try editing this file (src/routes/index.svelte) to test live reloading.
-  </strong>
-</p>
+  const { session } = stores();
+  const ctx = getContext($session.ctx)
+
+  export let rand;
+
+  $ctx.rand = rand;
+</script>
+
+<pre>{$ctx.rand}</pre>
